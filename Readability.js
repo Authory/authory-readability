@@ -2766,7 +2766,7 @@ Readability.prototype = {
     var textContent = articleContent.textContent;
     return {
       title: this._articleTitle,
-      byline: metadata.byline || this._articleByline,
+      byline: metadata.byline,
       dir: this._articleDir,
       lang: this._articleLang,
       content: this._serializer(articleContent),
