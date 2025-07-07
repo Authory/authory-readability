@@ -7,4 +7,6 @@ This document details the changes we made to the readability script for our use 
 ## Changes Made
 
 - Byline is not guessed anymore (we don't try to pick it up from the article if we cannot find it)
-- If we cannot find article text content, we return the rest of the metadata found (instead of returning null)
+- If we cannot find article text content:
+  - we return the rest of the metadata found (instead of returning null)
+  - The return content/text content is "undefined" with length "0" 

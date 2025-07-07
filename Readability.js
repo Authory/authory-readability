@@ -2756,6 +2756,9 @@ Readability.prototype = {
 
     var articleContent = this._grabArticle();
     let content = undefined;
+    let textContent = undefined;
+    let contentLength = 0;
+
     if (articleContent) {
       this.log("Grabbed: " + articleContent.innerHTML);
 
@@ -2771,9 +2774,10 @@ Readability.prototype = {
         }
       }
       content = this._serializer(articleContent);
+      textContent = articleContent.textContent;
+      contentLength = textContent.length;
     }
 
-    var textContent = articleContent.textContent;
     return {
       title: this._articleTitle,
       byline: metadata.byline,
@@ -2781,7 +2785,7 @@ Readability.prototype = {
       lang: this._articleLang,
       content: content,
       textContent,
-      length: textContent.length,
+      length: textContent,
       excerpt: metadata.excerpt,
       siteName: metadata.siteName || this._articleSiteName,
       publishedTime: metadata.publishedTime,
