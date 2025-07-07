@@ -2755,22 +2755,22 @@ Readability.prototype = {
     this._articleTitle = metadata.title;
 
     var articleContent = this._grabArticle();
-    if (!articleContent) {
-      return null;
-    }
+    let content = undefined;
+    if (articleContent) {
+      this.log("Grabbed: " + articleContent.innerHTML);
 
-    this.log("Grabbed: " + articleContent.innerHTML);
+      this._postProcessContent(articleContent);
 
-    this._postProcessContent(articleContent);
-
-    // If we haven't found an excerpt in the article's metadata, use the article's
-    // first paragraph as the excerpt. This is used for displaying a preview of
-    // the article's content.
-    if (!metadata.excerpt) {
-      var paragraphs = articleContent.getElementsByTagName("p");
-      if (paragraphs.length) {
-        metadata.excerpt = paragraphs[0].textContent.trim();
+      // If we haven't found an excerpt in the article's metadata, use the article's
+      // first paragraph as the excerpt. This is used for displaying a preview of
+      // the article's content.
+      if (!metadata.excerpt) {
+        var paragraphs = articleContent.getElementsByTagName("p");
+        if (paragraphs.length) {
+          metadata.excerpt = paragraphs[0].textContent.trim();
+        }
       }
+      content = this._serializer(articleContent);
     }
 
     var textContent = articleContent.textContent;
@@ -2779,7 +2779,7 @@ Readability.prototype = {
       byline: metadata.byline,
       dir: this._articleDir,
       lang: this._articleLang,
-      content: this._serializer(articleContent),
+      content: content,
       textContent,
       length: textContent.length,
       excerpt: metadata.excerpt,
